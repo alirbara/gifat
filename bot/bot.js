@@ -61,13 +61,13 @@ const userSchema = new Schema(
 const User = new mongoose.model("User", userSchema);
 
 var preparedGIFs = [
-  "CgACAgQAAxkBAAICaWEIBMKz3LvhFg6hYpKhP1IBmvqFAAKQAgACmaFEUCJO25mK_DMlIAQ",
-  "CgACAgIAAxkBAAICZmEIBKDSQ8kUvoZ5hihcifEmpaA-AAKBAwAC6lcwSLL44Jj9aZPzIAQ",
-  "CgACAgQAAxkBAAPnYQE9BOIQd69DyfraXG9l_5WRKY8AAqACAAJyDSVRfTV1KqYPMzMgBA",
-  "CgACAgQAAxkBAAIGhmEZC1BJO5wx6f2UkkHAQGuyRtOjAAJYAgAC-3WUUp6YlSZET4v8IAQ",
-  "CgACAgQAAxkBAAIGh2EZC6SUkuXC7y7RGBIk5ihfsSsOAAL7AgACZUbNUIbR2bBRsWs1IAQ",
-  "CgACAgQAAxkBAAIGiGEZC9ACumHQmFyxwwE8AyCYPuCEAAJYAgACuQABnVJts2M7AAGKJIQgBA",
-];
+  "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
+  "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
+  "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
+  "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
+  "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
+  "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA"
+]
 
 var errorGIFs = []
 for (let i = 3; i < preparedGIFs.length; i++) {
@@ -91,7 +91,12 @@ for (let i = 0; i < 3; i++) {
 var offset = 1;
 var queryCondition = {};
 
+const botUsername = "gifat_bot"
+
 bot.on("message", (msg) => {
+  userId = msg.from.id
+  userFirstName = msg.from.first_name
+
   if (!msg.animation) {
     if (msg.text === "/start") {
       User.findOne({ telegram_id: msg.from.id }, (err, foundUser) => {
@@ -111,22 +116,10 @@ bot.on("message", (msg) => {
               telegram_username: msg.from.username,
             });
             newUser.save().then(() => {
-              bot.sendDocument(
-                msg.from.id,
-                "CgACAgQAAxkBAAICQmEH_7dk1Lvt9RfLybscsA8blCRQAAIQAwACj9FFUEFeN6mgp1HmIAQ",
-                {
-                  caption: `👋 سلام ${msg.from.first_name} \n 🤗 خیلی خوش اومدی \n 🤟 گیف‌های مورد علاقه‌ت رو اینجا برام بفرست و اگه دوست داشتی بهشون برچسب بزن تا بعداً توی چت‌ها با دستور @gifarchivebot بتونی خیلی سریع به همه گیف‌هات دسترسی پیدا کنی! \n 😎 برای شروع یکی از گیف‌هات رو برام ارسال کن`,
-                }
-              );
+              bot.sendMessage(userId, `👋 سلام ${userFirstName} \n 🤗 خیلی خوش اومدی \n 🤟 گیف‌های مورد علاقه‌ت رو اینجا برام بفرست و اگه دوست داشتی بهشون برچسب بزن تا بعداً توی چت‌ها با دستور @${botUsername} بتونی خیلی سریع به همه گیف‌هات دسترسی پیدا کنی! \n 😎 برای شروع یکی از گیف‌هات رو برام ارسال کن`)
             });
           } else {
-            bot.sendDocument(
-              msg.from.id,
-              "CgACAgQAAxkBAAIC4mEI_7AIttQ_hYrCs6Fq2ItpeIQEAAK1AgAC7-dEUHk5xqnDkQfmIAQ",
-              {
-                caption: `👋 سلام  ${msg.from.first_name}، از دیدن دوباره‌ت خیلی خوشحالم 😃`,
-              }
-            );
+            bot.sendMessage(userId, `👋 سلام  ${userFirstName}، از دیدن دوباره‌ت خیلی خوشحالم 😃`)
           }
         }
       });
@@ -236,6 +229,7 @@ bot.on("message", (msg) => {
                 }
               );
             } else {
+              console.log(msg.document.file_id);
               const newGIF = new GIF({
                 _id: new mongoose.Types.ObjectId(),
                 file_id: msg.document.file_id,
