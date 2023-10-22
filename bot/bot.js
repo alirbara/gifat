@@ -16,7 +16,7 @@ const bot = new TelegramBot(token, { polling: true });
 // const sigKey = process.env.MONGOOSE_SIGNING_KEY;
 
 // Setup mongose connection
-mongoose.connect("mongodb://localhost:27017/myGifsBotDB", {
+mongoose.connect("mongodb://localhost:27017/GifatDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

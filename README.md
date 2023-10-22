@@ -1,2 +1,4 @@
 # GIfat
-Gifat is a tool for managing all those saved GIFs.
+![logo](assets/images/logo.png)
+
+# Unlimited GIFS on Telegram!
