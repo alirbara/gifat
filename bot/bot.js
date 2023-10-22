@@ -229,7 +229,6 @@ bot.on("message", (msg) => {
                 }
               );
             } else {
-              console.log(msg.document.file_id);
               const newGIF = new GIF({
                 _id: new mongoose.Types.ObjectId(),
                 file_id: msg.document.file_id,
