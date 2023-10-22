@@ -1,4 +1,4 @@
 # GIfat
 ![logo](assets/images/logo.png)
 
-# Unlimited GIFS on Telegram!
+## Unlimited GIFS on Telegram
