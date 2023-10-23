@@ -11,10 +11,6 @@ const token = process.env.TOKEN;
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
 
-//Setup mongoose encryption module
-// const encKey = process.env.MONGOOSE_ENCRYPTION_KEY;
-// const sigKey = process.env.MONGOOSE_SIGNING_KEY;
-
 // Setup mongose connection
 mongoose.connect("mongodb://localhost:27017/GifatDB", {
   useNewUrlParser: true,
@@ -34,11 +30,6 @@ const gifSchema = new Schema(
     timestamps: true,
   }
 );
-// gifSchema.plugin(encrypt, {
-//   encryptionKey: encKey,
-//   signingKey: sigKey,
-//   encryptedFields: ["file_id"],
-// });
 
 const GIF = new mongoose.model("GIF", gifSchema);
 

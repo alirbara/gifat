@@ -1,9 +1,10 @@
 # GIfat
 ![logo](assets/images/logo.png)
 
-## Unlimited GIFS on Telegram
+## Seachable GIFs on Telegram
 
 # Guide
+
 - Start the bot
 - Send a GIF
 - Add a tag if you like
