@@ -2,22 +2,16 @@
 const TelegramBot = require("node-telegram-bot-api");
 require("dotenv").config();
 const mongoose = require("mongoose");
-// const encrypt = require("mongoose-encryption");
+
 const Schema = mongoose.Schema;
-
-// Storing Bot API Token as environment variable
 const token = process.env.TOKEN;
-
-// Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
 
-// Setup mongose connection
 mongoose.connect("mongodb://localhost:27017/GifatDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-// GIF model for database
 const gifSchema = new Schema(
   {
     _id: Schema.Types.ObjectId,
@@ -33,7 +27,6 @@ const gifSchema = new Schema(
 
 const GIF = new mongoose.model("GIF", gifSchema);
 
-// User model for database
 const userSchema = new Schema(
   {
     _id: Schema.Types.ObjectId,
@@ -234,17 +227,6 @@ bot.on("message", (msg) => {
               bot.sendMessage(
                 msg.chat.id,
                 "🎉 گیف شما ثبت شد \n 😊 حالا می‌تونی یکی از گزینه‌های زیر رو انتخاب کنی",
-                // {
-                //   reply_markup: JSON.stringify({
-                //     inline_keyboard: [
-                //       [
-                //         { text: "🔖 برچسب زدن", callback_data: "tag" },
-                //         { text: "👊🏻 ارسال یک گیف دیگر", callback_data: "next" },
-                //       ],
-                //     ],
-                //   }),
-                //   reply_to_message_id: msg.message_id,
-                // }
                 {
                   reply_markup: JSON.stringify({
                     keyboard: [
