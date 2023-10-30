@@ -1,6 +1,6 @@
 # GIfat: Unlimited Searchable GIFs on Telegram
 
-![logo](assets/images/logo.png)
+![logo](assets/images/logo-200.png)
 
 ## Guide
 
