@@ -9,7 +9,7 @@ function main() {
     npm i
 
     # Deploy using pm2
-    pm2 start old.js --name "gifat"
+    pm2 start bot.js --name "gifat"
 }
 
 main
