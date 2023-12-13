@@ -1,4 +1,3 @@
-// Importing needed packages
 const TelegramBot = require("node-telegram-bot-api");
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -7,25 +6,10 @@ const Schema = mongoose.Schema;
 const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
-mongoose.connect("mongodb://localhost:27017/GifatDB", {
+mongoose.connect("mongodb://localhost:27017/gifatDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-const gifSchema = new Schema(
-  {
-    _id: Schema.Types.ObjectId,
-    file_id: String,
-    file_unique_id: String,
-    tag: { type: String, text: true, index: true },
-    owner: { type: Schema.Types.ObjectId, ref: "User" },
-  },
-  {
-    timestamps: true,
-  }
-);
-
-const GIF = new mongoose.model("GIF", gifSchema);
 
 const userSchema = new Schema(
   {
@@ -42,9 +26,23 @@ const userSchema = new Schema(
   }
 );
 
-const User = new mongoose.model("User", userSchema);
+const gifSchema = new Schema(
+  {
+    _id: Schema.Types.ObjectId,
+    file_id: String,
+    file_unique_id: String,
+    tag: { type: String, text: true, index: true },
+    owner: { type: Schema.Types.ObjectId, ref: "User" },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-var preparedGIFs = [
+const User = new mongoose.model("User", userSchema);
+const GIF = new mongoose.model("GIF", gifSchema);
+
+let preparedGIFs = [
   "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
   "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
   "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA",
@@ -53,7 +51,7 @@ var preparedGIFs = [
   "CgACAgQAAxkBAAMmZTV__64GjorhYe6LRb0NQzx50dgAAl0OAAJ0-7hSVl_VTYMm5xEwBA"
 ]
 
-var errorGIFs = []
+let errorGIFs = []
 for (let i = 3; i < preparedGIFs.length; i++) {
   errorGIFs.push({
     type: "gif",
@@ -62,7 +60,7 @@ for (let i = 3; i < preparedGIFs.length; i++) {
   });
 }
 
-var noGIFs = [];
+let noGIFs = [];
 for (let i = 0; i < 3; i++) {
   noGIFs.push({
     type: "gif",
@@ -72,8 +70,8 @@ for (let i = 0; i < 3; i++) {
 }
 
 
-var offset = 1;
-var queryCondition = {};
+let offset = 1;
+let queryCondition = {};
 
 const botUsername = "gifat_bot"
 
@@ -319,7 +317,7 @@ bot.on("inline_query", (msg) => {
                     foundUser.offset = offset;
                     foundUser.save();
                   } else {
-                    var resultGIFs = [];
+                    let resultGIFs = [];
                     for (let i = 0; i < foundGIFs.length; i++) {
                       resultGIFs.push({
                         type: "gif",
