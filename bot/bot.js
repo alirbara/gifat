@@ -3,7 +3,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const token = process.env.TOKEN;
+const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 mongoose.connect("mongodb://localhost:27017/gifatDB", {
@@ -158,7 +158,6 @@ bot.on("message", (msg) => {
                           reply_markup: JSON.stringify({
                             keyboard: [
                               [
-                                { text: "🪧 راهنما" },
                                 { text: "👊🏻 ارسال یک گیف دیگر" },
                               ],
                             ],
