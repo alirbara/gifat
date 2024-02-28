@@ -3,7 +3,7 @@
 function main() {
     # Write bot token into .env
     read -p "Enter the bot token: " token
-    echo "TOKEN=$token" > .env
+    echo "BOT_TOKEN=$token" > .env
 
     # Install dependencies
     npm i
